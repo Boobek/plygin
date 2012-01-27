@@ -6,7 +6,8 @@ import logging
 log = logging.getLogger("plygin-pluginloader")
 logging.level = logging.DEBUG
 
-
+pluginModules = "plygin"
+# Set this value to '*' when you want to load all plugins in the directory TODO
 activePlugins = [
 	"example",
 ]
@@ -14,10 +15,12 @@ activePlugins = [
 plugins = {}
 __depwait = []
 
+
 def __importPlugin(pluginDir):
-    plugin = import_module("." + pluginDir, "languageteacher.plugins")
+    plugin = import_module("." + pluginDir, pluginModules)
     log.debug("Plugin '%s' loading..", plugin.Meta.name)
     return plugin
+
 
 def __depCheck(plugin):
     depsOk = True
@@ -29,6 +32,7 @@ def __depCheck(plugin):
             log.debug("Plugin '%s' depending on '%s' and it's not loaded yet.",
                     plugin.Meta.name, deps[0])
     return depsOk
+
 
 def __loadPlugin(plugin):
     name = plugin.Meta.name
@@ -42,6 +46,7 @@ def loadPlugins():
         if __depCheck(plugin):
             __loadPlugin(plugin)
     log.debug("Try to solve dependencies")
+    print __depwait
     while len(__depwait) > 0:
         loadedPlugin = None
         for plugin in __depwait:
@@ -49,12 +54,10 @@ def loadPlugins():
                 __loadPlugin(plugin)
                 loadedPlugin = plugin
                 break
+        if loadedPlugin == None: break
         __depwait.remove(loadedPlugin)
 
-        if loadedPlugin == None: break
-
-    if len(__depwait) > 0:
-        raise RuntimeError("Unsatisfied dependencies..")
+    if len(__depwait) > 0: raise RuntimeError("Unsatisfied dependencies..")
     log.debug( "Plugins loaded." )
 
 

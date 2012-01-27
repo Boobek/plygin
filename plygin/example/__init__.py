@@ -10,7 +10,7 @@ class Meta(meta.Meta):
     }
     filepath = __file__
     dependencies = [
-        ("starter-gui-plugin", 1)
+        #("starter-gui-plugin", 1)
     ]
 
 
