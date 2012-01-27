@@ -6,7 +6,7 @@ import logging
 log = logging.getLogger("plygin-pluginloader")
 logging.level = logging.DEBUG
 
-pluginModules = "plygin"
+pluginModule = "plygin"
 # Set this value to '*' when you want to load all plugins in the directory TODO
 activePlugins = [
 	"example",
@@ -17,7 +17,7 @@ __depwait = []
 
 
 def __importPlugin(pluginDir):
-    plugin = import_module("." + pluginDir, pluginModules)
+    plugin = import_module("." + pluginDir, pluginModule)
     log.debug("Plugin '%s' loading..", plugin.Meta.name)
     return plugin
 

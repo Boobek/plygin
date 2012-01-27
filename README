@@ -5,3 +5,13 @@ For more details see the example directory (it's a plugin)
 All plugin has a separated directory (ex.: example)
 The pluginloader module load plugins from the specified directory.
 It's load only the selected directory names (or all).
+
+
+Usage:
+
+from plygin import pluginloader 
+pluginloader.pluginModule = "exampleproj.plugins" # Where are your plugins? 
+pluginloader.activePlugins = [...] # directory names of your plugins. ex: "example1", "example2" 
+pluginloader.loadPlugins() #load the plugins
+
+Licence: BSD
