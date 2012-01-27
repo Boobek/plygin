@@ -1,0 +1,7 @@
+Plugin system for python.
+
+For more details see the example directory (it's a plugin)
+
+All plugin has a separated directory (ex.: example)
+The pluginloader module load plugins from the specified directory.
+It's load only the selected directory names (or all).
